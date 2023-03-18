@@ -1,5 +1,6 @@
 package com.geovannycode.db
 
+import com.geovannycode.entity.StoryTable
 import com.geovannycode.entity.UserTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -15,6 +16,7 @@ object DatabaseFactory {
         Database.connect(hikari())
         transaction {
             SchemaUtils.create(UserTable)
+            SchemaUtils.create(StoryTable)
         }
     }
 
