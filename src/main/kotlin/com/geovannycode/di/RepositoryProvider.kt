@@ -10,4 +10,5 @@ import com.geovannycode.services.user.DefaultUserService
 object RepositoryProvider {
     fun provideUserRepository(): UserRepository = DefaultUserRepository(DefaultUserService())
     fun provideStoryRepository(): StoryRepository = DefaultStoryRepository(DefaultStoryService())
+
 }

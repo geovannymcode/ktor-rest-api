@@ -1,7 +1,9 @@
 package com.geovannycode.db.extension
 
+import com.geovannycode.entity.CommentTable
 import com.geovannycode.entity.StoryTable
 import com.geovannycode.entity.UserTable
+import com.geovannycode.models.Comment
 import com.geovannycode.models.Story
 import com.geovannycode.models.User
 import org.jetbrains.exposed.sql.ResultRow
@@ -51,6 +53,20 @@ fun ResultRow.toStoryJoinedWithUser(): Story? {
             content = this[StoryTable.content],
             isDraft = this[StoryTable.isDraft],
             createdAt = this[StoryTable.createdAt].toString(),
+        )
+    }
+}
+
+fun ResultRow?.toComment(): Comment? {
+    return if (this == null) {
+        null
+    } else {
+        Comment(
+            id = this[CommentTable.id],
+            userId = this[CommentTable.userId],
+            storyId = this[CommentTable.storyId],
+            comment = this[CommentTable.comment],
+            createdAt = this[CommentTable.createdAt].toString(),
         )
     }
 }

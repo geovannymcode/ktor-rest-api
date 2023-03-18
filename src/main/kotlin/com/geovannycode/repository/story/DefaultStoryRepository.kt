@@ -12,7 +12,7 @@ class DefaultStoryRepository(private val storyService: StoryService) : StoryRepo
     }
 
     override suspend fun getAllStories(page: Int, limit: Int): BaseResponse<Any> {
-        return BaseResponse.SuccessResponse(data = storyService.getAllStories(page,limit), message = SUCCESS)
+        return BaseResponse.SuccessResponse(data = storyService.getAllStories(page, limit), message = SUCCESS)
     }
 
     override suspend fun add(storyParams: StoryParams): BaseResponse<Any> {
@@ -22,5 +22,31 @@ class DefaultStoryRepository(private val storyService: StoryService) : StoryRepo
         } else {
             BaseResponse.ErrorResponse(message = GENERIC_ERROR)
         }
+    }
+
+    override suspend fun update(id: Int, storyParams: StoryParams): BaseResponse<Any> {
+        if (storyService.update(id, storyParams)) {
+            return BaseResponse.SuccessResponse(data = null, message = SUCCESS)
+        }
+        return BaseResponse.ErrorResponse(message = GENERIC_ERROR)
+    }
+
+    override suspend fun delete(storyId: Int): BaseResponse<Any> {
+        if (storyService.delete(storyId)) {
+            return BaseResponse.SuccessResponse(data = null, message = SUCCESS)
+        }
+        return BaseResponse.ErrorResponse(message = GENERIC_ERROR)
+    }
+
+    override suspend fun comment(userId: Int, storyId: Int, comment: String): BaseResponse<Any> {
+        if (storyService.comment(userId, storyId, comment)) {
+            return BaseResponse.SuccessResponse(data = null, message = SUCCESS)
+        }
+        return BaseResponse.ErrorResponse(message = GENERIC_ERROR)
+    }
+
+    override suspend fun getComments(storyId: Int): BaseResponse<Any> {
+        val comments = storyService.getComments(storyId)
+        return BaseResponse.SuccessResponse(data = comments, message = SUCCESS)
     }
 }
