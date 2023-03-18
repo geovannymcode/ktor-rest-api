@@ -1,4 +1,4 @@
-package com.geovannycode.services
+package com.geovannycode.routes.user
 
 data class CreateUserParams(
     val fullName: String,

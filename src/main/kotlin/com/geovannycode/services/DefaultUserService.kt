@@ -5,6 +5,8 @@ import com.geovannycode.db.DatabaseFactory.dbQuery
 import com.geovannycode.db.extension.toUser
 import com.geovannycode.entity.UserTable
 import com.geovannycode.models.User
+import com.geovannycode.routes.user.CreateUserParams
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.statements.InsertStatement
@@ -32,4 +34,14 @@ class DefaultUserService : UserService {
         return user
     }
 
+    override suspend fun getUser(id: Int): User? {
+        val userRow = dbQuery { UserTable.select { UserTable.id eq id }.first() }
+        return userRow.toUser()
+    }
+
+    override suspend fun loginUser(email: String, password: String): User? {
+        val hashedPassword = hash(password)
+        val userRow = dbQuery { UserTable.select { UserTable.email eq email and (UserTable.password eq hashedPassword) }.firstOrNull() }
+        return userRow.toUser()
+    }
 }

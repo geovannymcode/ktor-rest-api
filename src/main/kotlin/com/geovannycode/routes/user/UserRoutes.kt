@@ -1,7 +1,6 @@
-package com.geovannycode.routes
+package com.geovannycode.routes.user
 
 import com.geovannycode.repository.UserRepository
-import com.geovannycode.services.CreateUserParams
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -13,6 +12,12 @@ fun Application.userRoutes(repository: UserRepository) {
             post("/register") {
                 val params = call.receive<CreateUserParams>()
                 val result = repository.registerUser(params)
+                call.respond(result.statusCode, result)
+            }
+
+            post("/login") {
+                val params = call.receive<UserLoginParams>()
+                val result = repository.loginUser(params)
                 call.respond(result.statusCode, result)
             }
         }
