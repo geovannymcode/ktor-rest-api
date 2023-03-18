@@ -1,9 +1,12 @@
 package com.geovannycode.di
 
-import com.geovannycode.repository.DefaultUserRepository
-import com.geovannycode.repository.UserRepository
-import com.geovannycode.services.DefaultUserService
+import com.geovannycode.repository.story.DefaultStoryRepository
+import com.geovannycode.repository.user.DefaultUserRepository
+import com.geovannycode.repository.user.UserRepository
+import com.geovannycode.repository.story.StoryRepository
+import com.geovannycode.services.user.DefaultUserService
 
 object RepositoryProvider {
     fun provideUserRepository(): UserRepository = DefaultUserRepository(DefaultUserService())
+    fun provideStoryRepository(): StoryRepository = DefaultStoryRepository(DefaultStroyService())
 }

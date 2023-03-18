@@ -1,6 +1,6 @@
 package com.geovannycode.routes.user
 
-import com.geovannycode.repository.UserRepository
+import com.geovannycode.repository.user.UserRepository
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*

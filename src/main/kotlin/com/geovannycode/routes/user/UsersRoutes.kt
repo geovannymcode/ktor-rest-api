@@ -1,7 +1,7 @@
 package com.geovannycode.routes.user
 
 import com.geovannycode.Security.UserIdPrincipalForUser
-import com.geovannycode.repository.UserRepository
+import com.geovannycode.repository.user.UserRepository
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*

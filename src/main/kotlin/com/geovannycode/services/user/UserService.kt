@@ -1,4 +1,4 @@
-package com.geovannycode.services
+package com.geovannycode.services.user
 
 import com.geovannycode.models.User
 import com.geovannycode.routes.user.CreateUserParams

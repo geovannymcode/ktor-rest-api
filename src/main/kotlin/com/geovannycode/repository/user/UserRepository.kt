@@ -1,4 +1,4 @@
-package com.geovannycode.repository
+package com.geovannycode.repository.user
 
 import com.geovannycode.routes.user.CreateUserParams
 import com.geovannycode.routes.user.UserLoginParams

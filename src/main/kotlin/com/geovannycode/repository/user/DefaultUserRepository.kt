@@ -1,10 +1,10 @@
-package com.geovannycode.repository
+package com.geovannycode.repository.user
 
 import com.geovannycode.Security.JwtConfig
 import com.geovannycode.config.*
 import com.geovannycode.routes.user.CreateUserParams
 import com.geovannycode.routes.user.UserLoginParams
-import com.geovannycode.services.UserService
+import com.geovannycode.services.user.UserService
 import com.geovannycode.utils.BaseResponse
 
 class DefaultUserRepository(private val userService: UserService) : UserRepository {

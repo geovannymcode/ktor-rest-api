@@ -1,4 +1,4 @@
-package com.geovannycode.services
+package com.geovannycode.services.user
 
 import com.geovannycode.Security.hash
 import com.geovannycode.db.DatabaseFactory.dbQuery
