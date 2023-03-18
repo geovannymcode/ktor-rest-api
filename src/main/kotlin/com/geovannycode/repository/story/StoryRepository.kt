@@ -10,7 +10,7 @@ interface StoryRepository {
     suspend fun update(id: Int, storyParams: StoryParams): BaseResponse<Any>
     suspend fun delete(storyId: Int): BaseResponse<Any>
 
-    // suspend fun like(userId: Int, storyId: Int): BaseResponse<Any>
+    suspend fun like(userId: Int, storyId: Int): BaseResponse<Any>
     suspend fun comment(userId: Int, storyId: Int, comment: String): BaseResponse<Any>
     suspend fun getComments(storyId: Int): BaseResponse<Any>
 }

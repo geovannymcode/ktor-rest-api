@@ -52,6 +52,13 @@ fun Application.storyRoutes(storyRepository: StoryRepository) {
                     val result = storyRepository.comment(userId, storyId, comment)
                     call.respond(result.statusCode, result)
                 }
+
+                post("add/likes") {
+                    val userId = call.parameters["userId"]?.toIntOrNull() ?: -1
+                    val storyId = call.parameters["storyId"]?.toIntOrNull() ?: -1
+                    val result = storyRepository.like(userId, storyId)
+                    call.respond(result.statusCode, result)
+                }
             }
         }
     }

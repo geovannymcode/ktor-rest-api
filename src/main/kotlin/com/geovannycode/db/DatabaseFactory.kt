@@ -1,6 +1,7 @@
 package com.geovannycode.db
 
 import com.geovannycode.entity.CommentTable
+import com.geovannycode.entity.LikeTable
 import com.geovannycode.entity.StoryTable
 import com.geovannycode.entity.UserTable
 import com.zaxxer.hikari.HikariConfig
@@ -19,6 +20,7 @@ object DatabaseFactory {
             SchemaUtils.create(UserTable)
             SchemaUtils.create(StoryTable)
             SchemaUtils.create(CommentTable)
+            SchemaUtils.create(LikeTable)
         }
     }
 

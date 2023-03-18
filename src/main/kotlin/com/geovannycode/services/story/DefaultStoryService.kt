@@ -5,6 +5,7 @@ import com.geovannycode.db.extension.toComment
 import com.geovannycode.db.extension.toStory
 import com.geovannycode.db.extension.toStoryJoinedWithUser
 import com.geovannycode.entity.CommentTable
+import com.geovannycode.entity.LikeTable
 import com.geovannycode.entity.StoryTable
 import com.geovannycode.entity.UserTable
 import com.geovannycode.models.Comment
@@ -54,6 +55,15 @@ class DefaultStoryService : StoryService {
         return PaginatedResult(pageCount, nextPage, stories)
     }
 
+    override suspend fun getLikedStories(userId: Int): List<Story> {
+        return DatabaseFactory.dbQuery {
+            val storyTable = StoryTable.alias("s")
+            LikeTable.innerJoin(storyTable, { LikeTable.storyId }, { storyTable[StoryTable.id] })
+                .select { LikeTable.userId eq userId }
+                .mapNotNull { it.toStory() }
+        }
+    }
+
     override suspend fun add(storyParams: StoryParams): Story? {
         var statement: InsertStatement<Number>? = null
         DatabaseFactory.dbQuery {
@@ -88,13 +98,24 @@ class DefaultStoryService : StoryService {
         return result == 1
     }
 
+    override suspend fun like(userId: Int, storyId: Int): Boolean {
+        var statement: InsertStatement<Number>? = null
+        DatabaseFactory.dbQuery {
+            statement = LikeTable.insert {
+                it[this.userId] = userId
+                it[this.storyId] = storyId
+            }
+        }
+        return statement?.resultedValues?.isNotEmpty() ?: false
+    }
+
     override suspend fun comment(userId: Int, storyId: Int, comment: String): Boolean {
-        var statement: InsertStatement<Number>? =null
+        var statement: InsertStatement<Number>? = null
         DatabaseFactory.dbQuery {
             statement = CommentTable.insert {
-                it[this.userId]= userId
-                it[this.storyId]=storyId
-                it[this.comment]= comment
+                it[this.userId] = userId
+                it[this.storyId] = storyId
+                it[this.comment] = comment
             }
         }
         return statement?.resultedValues?.isNotEmpty() ?: false

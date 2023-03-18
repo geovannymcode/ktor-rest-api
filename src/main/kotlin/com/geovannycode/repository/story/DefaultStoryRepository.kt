@@ -38,6 +38,13 @@ class DefaultStoryRepository(private val storyService: StoryService) : StoryRepo
         return BaseResponse.ErrorResponse(message = GENERIC_ERROR)
     }
 
+    override suspend fun like(userId: Int, storyId: Int): BaseResponse<Any> {
+        if (storyService.like(userId, storyId)) {
+            return BaseResponse.SuccessResponse(data = null, message = SUCCESS)
+        }
+        return BaseResponse.ErrorResponse(message = GENERIC_ERROR)
+    }
+
     override suspend fun comment(userId: Int, storyId: Int, comment: String): BaseResponse<Any> {
         if (storyService.comment(userId, storyId, comment)) {
             return BaseResponse.SuccessResponse(data = null, message = SUCCESS)
